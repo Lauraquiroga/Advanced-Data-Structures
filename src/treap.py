@@ -118,9 +118,12 @@ class Treap:
         return self.search(self.root, key)
 
     def search(self, root, key):
-    # Base Cases: empty treap or key is present at root
-        if not root or root.key == key:
-            return root
+        # Empty (root is None)
+        if not root:
+            return False
+        #key is present at root
+        elif root.key == key:
+            return True
         
         # Key is greater than root's key
         if root.key < key:

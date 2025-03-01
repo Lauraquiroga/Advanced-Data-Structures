@@ -8,12 +8,18 @@ def main():
     to perform the benchmark simulation.
     """
     treap = Treap()
-    treap.show_treap()
     treap.insert_node("aa")
+    treap.show_treap()
     treap.insert_node("ab")
+    treap.show_treap()
     treap.insert_node("bb")
+    treap.show_treap()
+    treap.insert_node("ba")
+    treap.show_treap()
     treap.delete_node("aa")
-    treap.search_key("ab")
+    print(treap.search_key("ab"))
+    print(treap.search_key("aa"))
+    print(treap.search_key("cc"))
     treap.show_treap()
 
 if __name__ == '__main__':
