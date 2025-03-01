@@ -20,17 +20,6 @@ class Treap(BaseTree):
         print(f"Deleting key={key}")
         self.root = self.delete(self.root, key)
 
-    def search_key(self, key):
-        """
-        Search for a node by a given key
-        
-        Parameters:
-        
-        Return:
-        """
-        print(f"Searching key={key}")
-        return self.search(self.root, key)
-
     # T1, T2 and T3 are subtrees of the tree rooted with y
     # (on left side) or x (on right side)
     #			 y							  x
@@ -121,23 +110,6 @@ class Treap(BaseTree):
                 root.right = self.delete(root.right, key)
     
         return root
-
-    def search(self, root, key):
-        """
-        """
-        # Empty (root is None)
-        if not root:
-            return False
-        # Key is present at root
-        elif root.key == key:
-            return True
-        
-        # Key is greater than root's key
-        if root.key < key:
-            return self.search(root.right, key)
-        
-        # Key is smaller than root's key
-        return self.search(root.left, key)
 
     def inorder(self, root):
         """
