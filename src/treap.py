@@ -1,13 +1,35 @@
 from .treap_node import TreapNode
+from .base_tree import BaseTree
 
-class Treap:
+class Treap(BaseTree):
     """
 	Code adapted from: https://www.geeksforgeeks.org/implementation-of-search-insert-and-delete-in-treap/
-	This code is contributed by Amit Mangal.
     
     """
     def __init__(self):
         self.root = None
+
+    def show_treap(self):
+        self.inorder(self.root)
+
+    def insert_node(self, key):
+        print(f"Inserting key={key}")
+        self.root = self.insert(self.root, key)
+    
+    def delete_node(self, key):
+        print(f"Deleting key={key}")
+        self.root = self.delete(self.root, key)
+
+    def search_key(self, key):
+        """
+        Search for a node by a given key
+        
+        Parameters:
+        
+        Return:
+        """
+        print(f"Searching key={key}")
+        return self.search(self.root, key)
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
     # (on left side) or x (on right side)
@@ -42,10 +64,6 @@ class Treap:
         
         # Return new root
         return y
-        
-    def insert_node(self, key):
-        print(f"Inserting key={key}")
-        self.root = self.insert(self.root, key)
 
     def insert(self, root, key):
         # If root is None, create a new node and return it
@@ -68,12 +86,10 @@ class Treap:
             if root.right.priority > root.priority:
                 root = self.leftRotate(root)
         return root
-    
-    def delete_node(self, key):
-        print(f"Deleting key={key}")
-        self.root = self.delete(self.root, key)
 
     def delete(self, root, key):
+        """
+        """
         if not root:
             return root
         
@@ -105,23 +121,14 @@ class Treap:
                 root.right = self.delete(root.right, key)
     
         return root
-    
-    def search_key(self, key):
-        """
-        Search for a node by a given key
-        
-        Parameters:
-        
-        Return:
-        """
-        print(f"Searching key={key}")
-        return self.search(self.root, key)
 
     def search(self, root, key):
+        """
+        """
         # Empty (root is None)
         if not root:
             return False
-        #key is present at root
+        # Key is present at root
         elif root.key == key:
             return True
         
@@ -132,10 +139,9 @@ class Treap:
         # Key is smaller than root's key
         return self.search(root.left, key)
 
-    def show_treap(self):
-        self.inorder(self.root)
-
     def inorder(self, root):
+        """
+        """
         if root:
             self.inorder(root.left)
             print("key:", root.key, "| priority:", root.priority, end="")
