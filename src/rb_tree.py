@@ -18,7 +18,7 @@ class RBTree(BaseTree):
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
     # (on left side) or x (on right side)
-    #			 y							  x
+    #			 y                            x
     #			 / \	 Right Rotation		 / \
     #			 x T3    – – – – – – – >    T1  y
     #			/ \	    < - - - - - - -		   / \
