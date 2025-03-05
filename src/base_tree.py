@@ -6,10 +6,6 @@ class BaseTree(ABC):
         pass
 
     @abstractmethod
-    def delete_node(self, key):
-        pass
-
-    @abstractmethod
     def rightRotate(self, y):
         pass
 

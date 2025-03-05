@@ -7,6 +7,7 @@ class RBTree(BaseTree):
 
     Code adapted from: 
     https://www.geeksforgeeks.org/insertion-in-red-black-tree/
+    https://www.geeksforgeeks.org/deletion-in-red-black-tree/
     """
 
     def __init__(self):
@@ -72,9 +73,6 @@ class RBTree(BaseTree):
             self.root.color = 'B'
         else:
             self.root = self.insert(self.root, key)
-
-    def delete_node(self, key):
-        pass
 
     def insert(self, root, key):
         """
@@ -163,11 +161,6 @@ class RBTree(BaseTree):
 
             rr_conflict = False
         return root
-
-
-
-    def delete(self, root, key):
-        pass
 
     def inorder(self, root):
         """
