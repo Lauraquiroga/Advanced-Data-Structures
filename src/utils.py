@@ -10,8 +10,7 @@ class Helper:
     
     The `Helper` class includes static methods to:
     - Measure the execution time of functions.
-    - Load usernames from a file.
-    - Create and save a new dataset of randomly generated usernames.
+    - Load data from a file.
     """
 
     @staticmethod
