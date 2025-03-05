@@ -65,8 +65,8 @@ class RBTree(BaseTree):
     def insert_node(self, key):
         # Base case: empty tree
         if self.root is None:
-            self.root = self.Node(key)
-            self.root.colour = 'B'
+            self.root = RBNode(key)
+            self.root.color = 'B'
         else:
             self.root = self.insert(self.root, key)
 
@@ -74,7 +74,94 @@ class RBTree(BaseTree):
         pass
 
     def insert(self, root, key):
-        pass
+        """
+        """
+        rr_conflict = False #flag to check RED-RED conflict
+
+        # We have found the key's place on the structure according to the BST order
+        if root is None:
+            return RBNode(key)
+        
+        # The key goes on the left tree of the root
+        elif key<root.key:
+            root.left=self.insert(root.left, key)
+            root.left.parent = root
+            # Evaluating if there is RED-RED conflict
+            if root != self.root: # The root param is not the root of the tree
+                if root.color == 'R' and root.left.color == 'R': # 2 consecutive red nodes on the path
+                    rr_conflict + True
+
+        # The key goes on the right tree of the root
+        else:
+            root.right = self.insert(root.right, key)
+            root.right.parent = root
+            # Evaluating if there is RED-RED conflict
+            if root != self.root: # The root param is not the root of the tree
+                if root.color == 'R' and root.right.color == 'R': # 2 consecutive red nodes on the path
+                    rr_conflict + True
+        
+        # Perform rotations
+        if self.ll_rotation:
+            root = self.leftRotate(root)
+            root.color = 'B'
+            root.left.color = 'R'
+            self.ll_rotation = False
+        elif self.rr_rotation:
+            root = self.rightRotate(root)
+            root.color = 'B'
+            root.right.color = 'R'
+            self.rr_rotation = False
+        elif self.rl_rotation:
+            root.right = self.rightRotate(root.right)
+            root.right.parent = root
+            root = self.leftRotate(root)
+            root.color = 'B'
+            root.left.color = 'R'
+            self.rl_rotation = False
+        elif self.lr_rotation:
+            root.left = self.leftRotate(root.left)
+            root.left.parent = root
+            root = self.rightRotate(root)
+            root.color = 'B'
+            root.right.color = 'R'
+            self.lr_rotation = False
+        
+        # Handle RED-RED conflicts
+        if rr_conflict:
+            # root is a right child
+            if root.parent.right == root:
+                # root has no left sibling or the sibling is black
+                if root.parent.left is None or root.parent.left.color =='B':
+                    # root has red left child
+                    if root.left is not None and root.left.color == 'R':
+                        self.rl_rotation = True
+
+                    # root has red right child
+                    elif root.right is not None and root.right.color == 'R':
+                        self.ll_rotation = True
+                    
+                else:
+                    root.parent.left.color = 'B'
+                    root.color = 'B'
+                    if root.parent != self.root:
+                        root.parent.color = 'R'
+
+            else:
+                if root.parent.right is None or root.parent.right.color == 'B':
+                    if root.left is not None and root.left.color == 'R':
+                        self.rr_rotation = True
+                    elif root.right is not None and root.right.color == 'R':
+                        self.lr_rotation= True
+                else:
+                    root.parent.right.color = 'B'
+                    root.color = 'B'
+                    if root.parent != self.root:
+                        root.parent.color = 'R'
+
+            rr_conflict = False
+        return root
+
+
 
     def delete(self, root, key):
         pass
