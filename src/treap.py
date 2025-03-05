@@ -13,11 +13,9 @@ class Treap(BaseTree):
         self.inorder(self.root)
 
     def insert_node(self, key):
-        print(f"Inserting key={key}")
         self.root = self.insert(self.root, key)
     
     def delete_node(self, key):
-        print(f"Deleting key={key}")
         self.root = self.delete(self.root, key)
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
