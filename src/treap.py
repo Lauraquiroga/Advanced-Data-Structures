@@ -26,7 +26,7 @@ class Treap(BaseTree):
     #			/ \	    < - - - - - - -		   / \
     #		   T1 T2	  Left Rotation	      T2 T3 */
     
-    def rightRotate(self, y):
+    def right_rotate(self, y):
         """
         """
         x = y.left
@@ -39,7 +39,7 @@ class Treap(BaseTree):
         # Return new root
         return x
         
-    def leftRotate(self, x):
+    def left_rotate(self, x):
         """
         """
         y = x.right
@@ -64,14 +64,14 @@ class Treap(BaseTree):
             
             # Fix Heap property if it is violated
             if root.left.priority > root.priority:
-                root = self.rightRotate(root)
+                root = self.right_rotate(root)
         else:
             # Insert in right subtree
             root.right = self.insert(root.right, key)
             
             # Fix Heap property if it is violated
             if root.right.priority > root.priority:
-                root = self.leftRotate(root)
+                root = self.left_rotate(root)
         return root
 
     def delete(self, root, key):
@@ -101,10 +101,10 @@ class Treap(BaseTree):
             
             # If key is at root and both left and right are not None
             elif root.left.priority < root.right.priority:
-                root = self.leftRotate(root)
+                root = self.left_rotate(root)
                 root.left = self.delete(root.left, key)
             else:
-                root = self.rightRotate(root)
+                root = self.right_rotate(root)
                 root.right = self.delete(root.right, key)
     
         return root

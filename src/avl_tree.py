@@ -31,7 +31,15 @@ class AVLTree(BaseTree):
             return 0
         return node.height
     
-    def rightRotate(self, y):
+    def get_balance(self, node):
+        """
+        Get balance factor of given node
+        """
+        if not node:
+            return 0
+        return self.height(node.left) - self.height(node.right)
+    
+    def right_rotate(self, y):
         """
         Perform Right Rotation
         """
@@ -49,7 +57,7 @@ class AVLTree(BaseTree):
         # Return new root
         return x
 
-    def leftRotate(self, x):
+    def left_rotate(self, x):
         """
         Perform Left Rotation
         """
@@ -68,10 +76,61 @@ class AVLTree(BaseTree):
         return y
 
     def insert_node(self, key):
-        pass
+        """
+        Function called from outside the class (interface?) to insert a new node on the tree
+        """
+        # Base case: empty tree
+        if self.root is None:
+            self.root = AVlNode(key)
+        else:
+            self.root = self.insert(self.root, key)
 
     def insert(self, root, key):
-        pass
+        """
+        Recursive function to insert a key in the subtree rooted at 'root'
+        """
+        # We have found the key's place on the structure according to the BST order
+        if root is None:
+            return AVlNode(key)
+        
+        if key < root.key:
+            root.left = self.insert(root.left, key)
+        elif key > root.key:
+            root.right = self.insert(root.right, key)
+        else:
+            # Equal keys are not allowed in BST
+            return root
+
+        # Update height of this ancestor node
+        root.height = 1 + max(self.height(root.left), self.height(root.right))
+
+        # Get the balance factor of this ancestor node
+        balance = self.get_balance(root)
+
+        # If this node becomes unbalanced, 
+        # then there are 4 cases
+
+        # Left Left Case
+        if balance > 1 and key < root.left.key:
+            return self.right_rotate(root)
+
+        # Right Right Case
+        if balance < -1 and key > root.right.key:
+            return self.left_rotate(root)
+
+        # Left Right Case
+        if balance > 1 and key > root.left.key:
+            root.left = self.left_rotate(root.left)
+            return self.right_rotate(root)
+
+        # Right Left Case
+        if balance < -1 and key < root.right.key:
+            root.right = self.right_rotate(root.right)
+            return self.left_rotate(root)
+
+        # Return the (unchanged) node pointer
+        return root
+        
 
     def inorder(self, root):
         """

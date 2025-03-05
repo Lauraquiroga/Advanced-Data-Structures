@@ -28,7 +28,7 @@ class RBTree(BaseTree):
     #			/ \	    < - - - - - - -		   / \
     #		   T1 T2	  Left Rotation	      T2 T3 */
     
-    def rightRotate(self, y):
+    def right_rotate(self, y):
         """
         Perform Right Rotation
         """
@@ -47,7 +47,7 @@ class RBTree(BaseTree):
         # Return new root
         return x
 
-    def leftRotate(self, x):
+    def left_rotate(self, x):
         """
         Perform Left Rotation
         """
@@ -103,26 +103,26 @@ class RBTree(BaseTree):
         
         # Perform rotations
         if self.ll_rotation:
-            root = self.leftRotate(root)
+            root = self.left_rotate(root)
             root.color = 'B'
             root.left.color = 'R'
             self.ll_rotation = False
         elif self.rr_rotation:
-            root = self.rightRotate(root)
+            root = self.right_rotate(root)
             root.color = 'B'
             root.right.color = 'R'
             self.rr_rotation = False
         elif self.rl_rotation:
-            root.right = self.rightRotate(root.right)
+            root.right = self.right_rotate(root.right)
             root.right.parent = root
-            root = self.leftRotate(root)
+            root = self.left_rotate(root)
             root.color = 'B'
             root.left.color = 'R'
             self.rl_rotation = False
         elif self.lr_rotation:
-            root.left = self.leftRotate(root.left)
+            root.left = self.left_rotate(root.left)
             root.left.parent = root
-            root = self.rightRotate(root)
+            root = self.right_rotate(root)
             root.color = 'B'
             root.right.color = 'R'
             self.lr_rotation = False

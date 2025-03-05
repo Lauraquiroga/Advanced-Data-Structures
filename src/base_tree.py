@@ -10,11 +10,11 @@ class BaseTree(ABC):
         pass
 
     @abstractmethod
-    def rightRotate(self, y):
+    def right_rotate(self, y):
         pass
 
     @abstractmethod
-    def leftRotate(self, x):
+    def left_rotate(self, x):
         pass
 
     def search_key(self, key):
