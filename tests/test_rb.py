@@ -55,7 +55,7 @@ class TestRBTree(unittest.TestCase):
         """
         Test if keys are inserted and searched correctly within the tree.
         """
-        #Setup the Treap object for each test.
+        #Setup the tree object for each test.
         rb_tree = RBTree()
         # Insert nodes
         rb_tree.insert_node(50)
@@ -71,7 +71,7 @@ class TestRBTree(unittest.TestCase):
         """
         Test that search returns False if key is not in the tree.
         """
-        #Setup the Treap object for each test.
+        #Setup the tree object for each test.
         rb_tree = RBTree()
         # Insert nodes
         rb_tree.insert_node(50)
@@ -80,6 +80,22 @@ class TestRBTree(unittest.TestCase):
 
         # Test if a key that wasn't inserted is not found
         self.assertFalse(rb_tree.search_key(100))  # Should return False
+
+    def test_bst_property(self):
+        """Test Treap maintains the BST property"""
+        rb_tree = RBTree()
+        keys = [10, 20, 30, 40, 50, 25]
+        for key in keys:
+            rb_tree.insert_node(key)
+
+        def is_bst(node, min_val=float('-inf'), max_val=float('inf')):
+            if not node:
+                return True
+            if not (min_val < node.key < max_val):
+                return False
+            return is_bst(node.left, min_val, node.key) and is_bst(node.right, node.key, max_val)
+
+        self.assertTrue(is_bst(rb_tree.root), "BST property violated!")
 
     def test_red_black_properties(self):
         """Test if the red-black properties hold after multiple insertions."""

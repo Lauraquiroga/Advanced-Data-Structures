@@ -103,7 +103,6 @@ class AVLTree(BaseTree):
 
         # Update height of this ancestor node
         root.height = 1 + max(self.height(root.left), self.height(root.right))
-        print(f"inserting {key}, updating {root.key}'s height to {root.height}")
 
         # Get the balance factor of this ancestor node
         balance = self.get_balance(root)

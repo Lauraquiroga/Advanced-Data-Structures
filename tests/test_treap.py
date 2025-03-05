@@ -115,3 +115,20 @@ class TestTreap(unittest.TestCase):
             #       50
             self.assertEqual(treap.root.key, small_key) # 30 should be the root -> BST property
             self.assertGreaterEqual(treap.root.priority, treap.root.right.priority) # Max-Heap: root's priority should be >= child's priority
+
+        
+    def test_bst_property(self):
+        """Test Treap maintains the BST property"""
+        treap = Treap()
+        keys = [10, 20, 30, 40, 50, 25]
+        for key in keys:
+            treap.insert_node(key)
+
+        def is_bst(node, min_val=float('-inf'), max_val=float('inf')):
+            if not node:
+                return True
+            if not (min_val < node.key < max_val):
+                return False
+            return is_bst(node.left, min_val, node.key) and is_bst(node.right, node.key, max_val)
+
+        self.assertTrue(is_bst(treap.root), "BST property violated!")
