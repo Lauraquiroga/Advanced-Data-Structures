@@ -1,4 +1,5 @@
 from src.treap import Treap
+from src.rb_tree import RBTree
 
 def main():
     """
@@ -7,20 +8,11 @@ def main():
     This function loads the usernames from a file and passes them to the LoginChecker 
     to perform the benchmark simulation.
     """
-    treap = Treap()
-    treap.insert_node("aa")
-    treap.show_treap()
-    treap.insert_node("ab")
-    treap.show_treap()
-    treap.insert_node("bb")
-    treap.show_treap()
-    treap.insert_node("ba")
-    treap.show_treap()
-    treap.delete_node("aa")
-    print(treap.search_key("ab"))
-    print(treap.search_key("aa"))
-    print(treap.search_key("cc"))
-    treap.show_treap()
+    rb_tree = RBTree()
+    keys = [10, 20, 30, 15]
+    for key in keys:
+        rb_tree.insert_node(key)
+    rb_tree.show_rbtree()
 
 if __name__ == '__main__':
     main()

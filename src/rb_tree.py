@@ -16,6 +16,9 @@ class RBTree(BaseTree):
         self.lr_rotation = False
         self.rl_rotation = False
 
+    def show_rbtree(self):
+        self.inorder(self.root)
+
     # T1, T2 and T3 are subtrees of the tree rooted with y
     # (on left side) or x (on right side)
     #			 y                            x
@@ -89,7 +92,7 @@ class RBTree(BaseTree):
             # Evaluating if there is RED-RED conflict
             if root != self.root: # The root param is not the root of the tree
                 if root.color == 'R' and root.left.color == 'R': # 2 consecutive red nodes on the path
-                    rr_conflict + True
+                    rr_conflict = True
 
         # The key goes on the right tree of the root
         else:
@@ -98,7 +101,7 @@ class RBTree(BaseTree):
             # Evaluating if there is RED-RED conflict
             if root != self.root: # The root param is not the root of the tree
                 if root.color == 'R' and root.right.color == 'R': # 2 consecutive red nodes on the path
-                    rr_conflict + True
+                    rr_conflict = True
         
         # Perform rotations
         if self.ll_rotation:
@@ -165,3 +168,16 @@ class RBTree(BaseTree):
 
     def delete(self, root, key):
         pass
+
+    def inorder(self, root):
+        """
+        """
+        if root:
+            self.inorder(root.left)
+            print("key:", root.key, "| color:", root.color, end="")
+            if root.left:
+                print(" | left child:", root.left.key, end="")
+            if root.right:
+                print(" | right child:", root.right.key, end="")
+            print()
+            self.inorder(root.right)
