@@ -80,3 +80,34 @@ class TestRBTree(unittest.TestCase):
 
         # Test if a key that wasn't inserted is not found
         self.assertFalse(rb_tree.search_key(100))  # Should return False
+
+    def test_red_black_properties(self):
+        """Test if the red-black properties hold after multiple insertions."""
+        rb_tree = RBTree()
+
+        keys = [10, 20, 30, 15, 25, 5, 1]
+        for key in keys:
+            rb_tree.insert_node(key)
+
+        # Ensure no two consecutive red nodes exist
+        def check_red_violation(node):
+            if node is None:
+                return True
+            if node.color == 'R':
+                if (node.left and node.left.color == 'R') or (node.right and node.right.color == 'R'):
+                    return False
+            return check_red_violation(node.left) and check_red_violation(node.right)
+
+        self.assertTrue(check_red_violation(rb_tree.root))
+
+        # Ensure black-height property holds
+        def black_height(node):
+            if node is None:
+                return 1
+            left_height = black_height(node.left)
+            right_height = black_height(node.right)
+            if left_height != right_height:
+                return -1  # Indicating violation
+            return left_height + (1 if node.color == 'B' else 0)
+
+        self.assertNotEqual(black_height(rb_tree.root), -1)
