@@ -12,7 +12,7 @@ def main():
     keys = [10, 20, 30, 15]
     for key in keys:
         rb_tree.insert_node(key)
-    rb_tree.show_rbtree()
+    rb_tree.show()
 
 if __name__ == '__main__':
     main()

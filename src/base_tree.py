@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 class BaseTree(ABC):
     @abstractmethod
+    def show(self, key):
+        pass
+
+    @abstractmethod
     def insert_node(self, key):
         pass
 

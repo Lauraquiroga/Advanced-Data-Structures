@@ -9,7 +9,7 @@ class Treap(BaseTree):
     def __init__(self):
         self.root = None
 
-    def show_treap(self):
+    def show(self):
         self.inorder(self.root)
 
     def insert_node(self, key):

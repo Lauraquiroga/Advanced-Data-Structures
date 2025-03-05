@@ -3,3 +3,4 @@ class AVlNode:
 		self.key=key
 		self.left = None
 		self.right = None
+		self.height = 1

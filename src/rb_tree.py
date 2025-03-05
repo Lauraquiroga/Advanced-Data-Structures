@@ -17,7 +17,7 @@ class RBTree(BaseTree):
         self.lr_rotation = False
         self.rl_rotation = False
 
-    def show_rbtree(self):
+    def show(self):
         self.inorder(self.root)
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
