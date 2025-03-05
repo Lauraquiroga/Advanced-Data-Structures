@@ -25,7 +25,6 @@ class BaseTree(ABC):
         
         Return:
         """
-        print(f"Searching key={key}")
         return self.search(self.root, key)
     
     def search(self, root, key):
