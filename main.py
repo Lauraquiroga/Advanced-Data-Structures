@@ -12,5 +12,10 @@ def main():
     # Helper.visualize_dataset_distribution(data)
     # Helper.save_dataset(data)
 
+    dataset = Helper.read_json('data/dataset1M.json')
+    b = Benchmark(dataset)
+    b.simulate_insertion()
+
+
 if __name__ == '__main__':
     main()
