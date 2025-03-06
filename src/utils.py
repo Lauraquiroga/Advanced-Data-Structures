@@ -81,8 +81,6 @@ class Helper:
 
         # Generating random uniform array
         random = np.random.choice(np.arange(min_val, max_val), size=dataset_size, replace=False)
-        
-        print(len(np.unique(random)))
 
         # Generating random skewed array
         skew_factor=2.0
@@ -90,9 +88,6 @@ class Helper:
         probabilities = np.exp(-skew_factor * (pool - min_val) / (max_val - min_val))
         probabilities /= probabilities.sum()
         skewed = np.random.choice(pool, size=dataset_size, replace=False, p=probabilities)
-        
-
-        print(len(np.unique(skewed)))
 
         # Generating ordered arrays
         ascending = np.arange(1, 1 + dataset_size)
