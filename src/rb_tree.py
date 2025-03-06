@@ -1,5 +1,6 @@
 from .rb_node import RBNode
 from .base_tree import BaseTree
+from .utils import Helper
 
 class RBTree(BaseTree):
     """
@@ -66,6 +67,7 @@ class RBTree(BaseTree):
         # Return new root
         return y
 
+    @Helper.timing_decorator 
     def insert_node(self, key):
         # Base case: empty tree
         if self.root is None:

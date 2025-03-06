@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from .utils import Helper
 
 class BaseTree(ABC):
     @abstractmethod
@@ -17,6 +18,7 @@ class BaseTree(ABC):
     def left_rotate(self, x):
         pass
 
+    @Helper.timing_decorator 
     def search_key(self, key):
         """
         Search for a node by a given key

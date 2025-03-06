@@ -1,6 +1,5 @@
+import numpy as np
 from datetime import datetime
-import random
-import string
 import time
 import json
 
@@ -35,7 +34,23 @@ class Helper:
         return wrapper
 
     @staticmethod
-    def generate_datasets(dataset_size, max_val):
+    def save_dataset(dataset):
+        """
+        Save dataset into a json file with a timestamp suffix in the filename.
+
+        Parameters:
+        dataset (dict): A dictionary in the format:
+        {'random':[], 'skewed': [], 'ascending':[], 'descending':[]}
+        containing the dataset to be saved.
+
+        File format:
+        The file will be saved in the './data/' directory with a filename that includes a timestamp
+        (format: YYYYMMDD_HHMMSS).
+        """
+        pass
+
+    @staticmethod
+    def generate_datasets(dataset_size, max_val=10000):
         """
         Generate the datasets:
         - 1M Asciending order
@@ -50,8 +65,13 @@ class Helper:
         Returns:
         list of 
         """
-        pass
-    
+        random = np.random.uniform(1, max_val, dataset_size).astype(int)
+        mean=5000
+        std_dev=1000
+        skewed = np.random.normal(mean, std_dev, dataset_size).astype(int)
+        ascending = np.arange(1, 1 + dataset_size)
+        descending =  np.arange(dataset_size, 0, -1)
+        return {'random':random, 'skewed': skewed, 'ascending':ascending, 'descending':descending}
 
     @staticmethod
     def save_search_results(exec_times, data_sizes):

@@ -1,5 +1,6 @@
 from .avl_node import AVlNode
 from .base_tree import BaseTree
+from .utils import Helper
 
 class AVLTree(BaseTree):
     """
@@ -75,6 +76,7 @@ class AVLTree(BaseTree):
         # Return new root
         return y
 
+    @Helper.timing_decorator 
     def insert_node(self, key):
         """
         Function called from outside the class (interface?) to insert a new node on the tree

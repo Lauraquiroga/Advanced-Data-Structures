@@ -1,5 +1,6 @@
 from .treap_node import TreapNode
 from .base_tree import BaseTree
+from .utils import Helper
 
 class Treap(BaseTree):
     """
@@ -12,6 +13,7 @@ class Treap(BaseTree):
     def show(self):
         self.inorder(self.root)
 
+    @Helper.timing_decorator 
     def insert_node(self, key):
         self.root = self.insert(self.root, key)
     

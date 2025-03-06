@@ -17,9 +17,10 @@ class TestTreap(unittest.TestCase):
         treap.insert_node(70)
 
         # Test if the keys are present
-        self.assertTrue(treap.search_key(50))  # Should return True
-        self.assertTrue(treap.search_key(30))  # Should return True
-        self.assertTrue(treap.search_key(70))  # Should return True
+        for key in [50, 30, 70]:
+            result, elapsed_time = treap.search_key(key)
+            self.assertTrue(result)  # Should return True
+            self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_insert_node_not_present(self):
         """
@@ -33,7 +34,9 @@ class TestTreap(unittest.TestCase):
         treap.insert_node(70)
 
         # Test if a key that wasn't inserted is not found
-        self.assertFalse(treap.search_key(100))  # Should return False
+        result, elapsed_time = treap.search_key(100)
+        self.assertFalse(result)  # Should return False
+        self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_delete_node(self):
         """
@@ -46,16 +49,17 @@ class TestTreap(unittest.TestCase):
         treap.insert_node(30)
         treap.insert_node(70)
         
-        # Check that the nodes are inserted
-        self.assertTrue(treap.search_key(50))
-        self.assertTrue(treap.search_key(30))
-        self.assertTrue(treap.search_key(70))
+        # Test if the keys are present
+        for key in [50, 30, 70]:
+            result, elapsed_time = treap.search_key(key)
+            self.assertTrue(result)  # Should return True
+            self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
         # Delete node and check the result
         treap.delete_node(30)
-        self.assertFalse(treap.search_key(30))  # Should return False after deletion
-        self.assertTrue(treap.search_key(50))   # 50 should still be present
-        self.assertTrue(treap.search_key(70))   # 70 should still be present
+        self.assertFalse(treap.search_key(30)[0])  # Should return False after deletion
+        self.assertTrue(treap.search_key(50)[0])   # 50 should still be present
+        self.assertTrue(treap.search_key(70)[0])   # 70 should still be present
 
     def test_delete_node_not_present(self):
         """
@@ -68,16 +72,19 @@ class TestTreap(unittest.TestCase):
         treap.insert_node(30)
         treap.insert_node(70)
         
-        # Check that the nodes are inserted
-        self.assertTrue(treap.search_key(50))
-        self.assertTrue(treap.search_key(30))
-        self.assertTrue(treap.search_key(70))
+        # Test if the keys are present
+        for key in [50, 30, 70]:
+            result, elapsed_time = treap.search_key(key)
+            self.assertTrue(result)  # Should return True
+            self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
         # Delete a non-existent node (e.g., 100)
         treap.delete_node(100)
-        self.assertTrue(treap.search_key(50))   # 50 should still be present
-        self.assertTrue(treap.search_key(30))   # 30 should still be present
-        self.assertTrue(treap.search_key(70))   # 70 should still be present
+        # Test if the keys are present
+        for key in [50, 30, 70]:
+            result, elapsed_time = treap.search_key(key)
+            self.assertTrue(result)  # Should return True
+            self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_empty_treap_search(self):
         """
@@ -86,7 +93,9 @@ class TestTreap(unittest.TestCase):
         #Setup the Treap object for each test.
         treap = Treap()
         # Search in an empty treap
-        self.assertFalse(treap.search_key(10))  # Should return False
+        result, elapsed_time = treap.search_key(10)
+        self.assertFalse(result)  # Should return False
+        self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_structure(self):
         """

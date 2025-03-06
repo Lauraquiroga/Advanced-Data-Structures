@@ -57,9 +57,10 @@ class TestAVLTree(unittest.TestCase):
         avl_tree.insert_node(70)
 
         # Test if the keys are present
-        self.assertTrue(avl_tree.search_key(50))  # Should return True
-        self.assertTrue(avl_tree.search_key(30))  # Should return True
-        self.assertTrue(avl_tree.search_key(70))  # Should return True
+        for key in [50, 30, 70]:
+            result, elapsed_time = avl_tree.search_key(key)
+            self.assertTrue(result)  # Should return True
+            self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_search_node_not_present(self):
         """
@@ -73,7 +74,9 @@ class TestAVLTree(unittest.TestCase):
         avl_tree.insert_node(70)
 
         # Test if a key that wasn't inserted is not found
-        self.assertFalse(avl_tree.search_key(100))  # Should return False
+        result, elapsed_time = avl_tree.search_key(100)
+        self.assertFalse(result)  # Should return False
+        self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_insert_balanced(self):
         """Test insertion maintains AVL tree balance"""
