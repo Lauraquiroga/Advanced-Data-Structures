@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from datetime import datetime
 import time
 import json
@@ -47,10 +49,19 @@ class Helper:
         The file will be saved in the './data/' directory with a filename that includes a timestamp
         (format: YYYYMMDD_HHMMSS).
         """
-        pass
+        try:
+            timestamp = time.strftime("%Y%m%d-%H%M%S")
+            filename = f"data/dataset1M_{timestamp}.json"
+
+            with open(filename, "w") as file:
+                json.dump(dataset, file, indent=4)
+            return True
+        except Exception as e:
+            print(f"Error saving dataset: {e}")
+            return False
 
     @staticmethod
-    def generate_datasets(dataset_size, max_val=10000):
+    def generate_datasets(dataset_size):
         """
         Generate the datasets:
         - 1M Asciending order
@@ -65,13 +76,52 @@ class Helper:
         Returns:
         list of 
         """
-        random = np.random.uniform(1, max_val, dataset_size).astype(int)
-        mean=5000
-        std_dev=1000
-        skewed = np.random.normal(mean, std_dev, dataset_size).astype(int)
+        min_val = 1
+        max_val = dataset_size*100
+
+        # Generating random uniform array
+        random = np.random.choice(np.arange(min_val, max_val), size=dataset_size, replace=False)
+        
+        print(len(np.unique(random)))
+
+        # Generating random skewed array
+        skew_factor=2.0
+        pool = np.arange(min_val, max_val + 1)
+        probabilities = np.exp(-skew_factor * (pool - min_val) / (max_val - min_val))
+        probabilities /= probabilities.sum()
+        skewed = np.random.choice(pool, size=dataset_size, replace=False, p=probabilities)
+        
+
+        print(len(np.unique(skewed)))
+
+        # Generating ordered arrays
         ascending = np.arange(1, 1 + dataset_size)
         descending =  np.arange(dataset_size, 0, -1)
-        return {'random':random, 'skewed': skewed, 'ascending':ascending, 'descending':descending}
+
+        # Create the dataset dictionary -> from np arrays to lists so that they can be saved into a json file
+        datasets = {
+        'random': random.tolist(),
+        'skewed': skewed.tolist(),
+        'ascending': ascending.tolist(),
+        'descending': descending.tolist()
+    }
+        return datasets
+    
+    def visualize_dataset_distribution(dataset):
+        """
+        Creates a histogram visualization for the dataset
+        
+        Parameters:
+        dataset (dict): A dictionary containing the dataset in the format:
+        {'random':[], 'skewed': [], 'ascending':[], 'descending':[]}
+        """
+        for key, array in dataset.items():
+            plt.figure(figsize=(10, 6))
+            sns.histplot(array, kde=True, bins=30, color='blue')
+            plt.title(f'Histogram of {key} data')
+            plt.xlabel('Value')
+            plt.ylabel('Frequency')
+            plt.show()
 
     @staticmethod
     def save_search_results(exec_times, data_sizes):
@@ -116,20 +166,15 @@ class Helper:
             return False
 
     @staticmethod
-    def read_search_results_json(filename):
+    def read_json(filename):
         """
-        Read the JSON file and store its content in 'results'.
-        The structure of the json file is as follows:
-        {
-            "Exec_times": { "AVL": [], "RB": [], "Treap": []},
-            "Data_sizes": []
-        }
+        Read the given JSON file and return its contents
 
         Return:
         (dict): the variable storing the data from the json file
         """
         # 
         with open(filename, 'r') as file:
-            results = json.load(file)
+            content = json.load(file)
 
-        return results
+        return content
