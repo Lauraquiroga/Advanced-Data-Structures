@@ -17,7 +17,7 @@ Author: Laura Quiroga (lquiroga)
 │&emsp;&emsp;│── benchmark.py   <-- Script to benchmark the data structures       
 │&emsp;&emsp;│── utils.py       <-- Utility functions (e.g., load_usernames)     
 │&emsp;&emsp;│── base_tree.py  <-- Defines an abstract base class for BST tree structure     
-│&emsp;&emsp;│── avl_tree.py  <-- Implementation of AVL tree 
+│&emsp;&emsp;│── avl_tree.py  <-- Implementation of AVL tree       
 │&emsp;&emsp;│── rb_tree.py  <-- Implementation of Red-Black tree    
 │&emsp;&emsp;│── treap.py  <-- Implementation of Treap  
 │&emsp;&emsp;│── avl_node.py  <-- Implementation of AVL tree node    
