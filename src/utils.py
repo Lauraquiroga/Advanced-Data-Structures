@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from sklearn.metrics import r2_score
 import seaborn as sns
 import time
 import json
@@ -259,7 +260,7 @@ class Helper:
             a, b = params  # Extract fitted parameters
 
             # Compute fitted values
-            y_fit = log_func(np.array(x), a, b)
+            y_fit = log_func(x, a, b)
 
             # Plot the original data and the logarithmic fit
             plt.scatter(x, y, label="Original Data", color='blue')
@@ -273,3 +274,6 @@ class Helper:
 
             # Print the fitted parameters
             print(f"{struc_key} - Fitted Parameters: a = {a}, b = {b}")
+            # Check goodness of fit (r^2 value)
+            r2 = r2_score(y, y_fit)
+            print(f"R²: {r2}")
