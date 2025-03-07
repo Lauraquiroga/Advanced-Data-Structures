@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 import seaborn as sns
 import time
 import json
@@ -232,3 +233,43 @@ class Helper:
             content = json.load(file)
 
         return content
+    
+    @staticmethod
+    def check_log_trend(search_results):
+        """
+        Check if the search results exhibit a logarithmic trend for each of the structures.
+        Plots them individually with their logarithmic fit.
+
+        Parameters:
+        search_results (dict): A dictionary containing the results of the search simulation in the format:
+        {
+            "Exec_times": { "AVL": [], "RB": [], "Treap": []},
+            "Data_sizes": []
+        }
+        """
+        def log_func(x, a, b):
+            return a + b * np.log(x)
+        
+        for struc_key, struc_times in search_results["Exec_times"].items():
+
+            x = np.array(search_results["Data_sizes"])
+            y = np.array(struc_times)
+            # Perform curve fitting
+            params, covariance = curve_fit(log_func, x, y)
+            a, b = params  # Extract fitted parameters
+
+            # Compute fitted values
+            y_fit = log_func(np.array(x), a, b)
+
+            # Plot the original data and the logarithmic fit
+            plt.scatter(x, y, label="Original Data", color='blue')
+            plt.plot(x, y_fit, 'r--', label=f"Logarithmic Fit: y = {a:.7f} + {b:.7f} log(x)", linewidth=2)
+            plt.xlabel("Input Size")
+            plt.ylabel("Runtime")
+            plt.title(f"Logarithmic Fit Analysis - BST Search ({struc_key})")
+            plt.legend()
+            plt.grid()
+            plt.show()
+
+            # Print the fitted parameters
+            print(f"{struc_key} - Fitted Parameters: a = {a}, b = {b}")

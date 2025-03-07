@@ -194,11 +194,8 @@ class Benchmark:
         plt.legend()
         plt.show()
 
-        # Plot individual trees with their results.
-        for tree, times in self.results_search.items():
-            plt.figure()
-            plt.ylabel('Run time (s)')
-            plt.xlabel('Size of the dataset')
-            plt.title(f"Run Time Complexity - {tree}")
-            plt.plot(self.sizes_search, times)
-            plt.show()
+        results = {
+            "Exec_times": self.results_search,
+            "Data_sizes": self.sizes_search
+        }
+        Helper.check_log_trend(results)
