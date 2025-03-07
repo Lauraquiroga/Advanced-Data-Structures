@@ -2,6 +2,7 @@
 Advanced Algorithms (COSC 520) - Assignment 2      
 Author: Laura Quiroga (lquiroga)     
 
+This project implements three comparable advanced data structures: AVL tree, Red-Black tree, and Treap. It also includes a numerical comparison of their performance in terms of time complexity for the search and insert operations.
 
 ## Project Structure
 📂 project_root/     
