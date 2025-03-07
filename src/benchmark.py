@@ -92,7 +92,7 @@ class Benchmark:
                 self.insert_multiple_nodes(tree, new_keys)
                 self.results_search[struc_name].append(self.average_search(tree))
         
-        return self.results_search
+        Helper.save_search_results(self.results_search, self.sizes_search)
             
 
     def insert_multiple_nodes(self, tree, keys):
@@ -175,13 +175,15 @@ class Benchmark:
         """
         """
         if file:
-            self.results_search = Helper.read_results_file(file)
+            results= Helper.read_results_file(file)
+            self.sizes_search = results['Data_sizes']
+            self.results_search = results['Exec_times']
 
         plt.figure()
 
         plt.ylabel('Run time (s)')
         plt.xlabel('Size of the dataset')
-        plt.title(f"Comparison of Run Time Complexity")
+        plt.title(f"Comparison of Run Time Complexity - BST Search")
 
         # Plot each algorithm's results
         for tree, times in self.results_search.items():

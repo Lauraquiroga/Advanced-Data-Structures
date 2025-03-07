@@ -12,12 +12,14 @@ def main():
     # Helper.visualize_dataset_distribution(data)
     # Helper.save_dataset(data)
 
-    dataset = Helper.read_json('data/dataset10.json')
+    dataset = Helper.read_json('data/dataset1M.json')
     b = Benchmark(dataset)
+
     #b.simulate_insertion()
     #b.plot_insert_log("insert_results_1M.json")
-    b.simulate_search()
-    b.plot_search()
+
+    #b.simulate_search(100)
+    b.plot_search("search_results_1M_steps100.json")
 
 
     # treap = Treap()
