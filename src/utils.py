@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from datetime import datetime
 import time
 import json
+import os
 
 class Helper:
     """
@@ -146,7 +146,7 @@ class Helper:
             final_size = data_sizes[-1] if data_sizes else "unknown"
             num_steps = len(data_sizes)
             timestamp = time.strftime("%Y%m%d-%H%M%S")
-            filename = f"data/results/benchmark_results_{final_size}_steps{num_steps}_{timestamp}.json"
+            filename = f"data/results/search_results_{final_size}_steps{num_steps}_{timestamp}.json"
 
             results = {
             "Exec_times": exec_times,
@@ -159,16 +159,76 @@ class Helper:
         except Exception as e:
             print(f"Error saving results: {e}")
             return False
+        
+    @staticmethod
+    def save_insert_results(results):
+        """
+        Saves the results of the simulation into a JSON file with a unique filename.
+
+        The filename is generated dynamically using:
+        - The final dataset size analyzed
+        - The number of steps in between data sizes
+        - A timestamp for uniqueness
+
+        The json file will follow the same format as the results parameter's
+
+        Parameters:
+        results (dict): The results of the insertion simulation in the format:
+        {
+        "random": { "AVL": [], "RB": [], "Treap": []},
+        "skewed": { "AVL": [], "RB": [], "Treap": []},
+        "ascending": { "AVL": [], "RB": [], "Treap": []},
+        "descending": { "AVL": [], "RB": [], "Treap": []},
+        }
+
+        Returns:
+        bool: True if the file is saved successfully, False otherwise.
+        """
+        try:
+            final_size = len(results['random']['AVL'])
+            timestamp = time.strftime("%Y%m%d-%H%M%S")
+
+            sibling_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+            os.makedirs(sibling_folder, exist_ok=True)
+            file_path = os.path.join(sibling_folder, f"results/insert_results_{final_size}_{timestamp}.json")
+
+            with open(file_path, "w") as file:
+                json.dump(results, file, indent=4)
+            return True
+        except Exception as e:
+            print(f"Error saving results: {e}")
+            return False
+
+    @staticmethod
+    def read_results_file(filename):
+        """
+        Read the given JSON file from the results folder and return its contents
+
+        Parameters:
+        filename (str): the name of the json file to read
+
+        Return:
+        (dict): the variable storing the data from the json file
+        """
+        sibling_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+        os.makedirs(sibling_folder, exist_ok=True)
+        file_path = os.path.join(sibling_folder, f"results/{filename}")
+        with open(file_path, 'r') as file:
+            content = json.load(file)
+
+        return content
 
     @staticmethod
     def read_json(filename):
         """
         Read the given JSON file and return its contents
 
+        Parameters:
+        filename (str): the name of the json file to read
+
         Return:
         (dict): the variable storing the data from the json file
         """
-        # 
         with open(filename, 'r') as file:
             content = json.load(file)
 

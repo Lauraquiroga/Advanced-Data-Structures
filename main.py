@@ -12,9 +12,10 @@ def main():
     # Helper.visualize_dataset_distribution(data)
     # Helper.save_dataset(data)
 
-    dataset = Helper.read_json('data/dataset1M.json')
+    dataset = Helper.read_json('data/dataset10.json')
     b = Benchmark(dataset)
-    b.simulate_insertion()
+    #b.simulate_insertion()
+    b.plot_insert("insert_results_10_20250306-161920.json")
 
 
 if __name__ == '__main__':
