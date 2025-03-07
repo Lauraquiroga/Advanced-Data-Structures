@@ -56,7 +56,7 @@ Follow these steps to run the project:
    ```bash
    python main.py # or use python3 main.py if needed
    ```
-   This will run the simulation with the dataset included in the data folder (dataset1M.txt).          
+   This will run the simulation with the dataset included in the data folder (dataset1M.json).          
 
    After the execution, the results will be saved in the data/results folder and you will see the plots showing the run time complexities.
            
@@ -72,3 +72,15 @@ Follow these steps to run the project:
    ```
    
 ## References
+Code in the AVLTree and AVLNode classes was adapted from:       
+GeeksforGeeks. Insertion in an AVL Tree. Accessed: 2025-03-07. 2025. url: https://www.
+geeksforgeeks.org/insertion-in-an-avl-tree/.         
+
+Code in the RBTree and RBNode classes was adapted from:       
+ GeeksforGeeks. Insertion in Red-Black Tree. Accessed: 2025-03-07. 2025. url: https://www.
+geeksforgeeks.org/insertion-in-red-black-tree/.       
+
+Code in the Treap and TreapNode classes was adapted from:      
+GeeksforGeeks. Implementation of Search, Insert and Delete in Treap. Accessed: 2025-03-07.
+2025. url: https://www.geeksforgeeks.org/implementation-of-search-insert-and-
+delete-in-treap/.
