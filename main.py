@@ -68,13 +68,13 @@ def main():
     b = Benchmark(dataset)
     
     # Run the insertion simulation and plot the results
-    #simulate_insertion(b)
+    simulate_insertion(b)
     
     # Run the search simulation and plot the results (with 10 steps in this case)
-    #simulate_search(b, 10)
+    simulate_search(b, 10)
 
     # Uncomment below lines if you want to plot the results from pre-saved files
-    b.plot_search("search_results_1M_steps100.json")  # Sample plot search from file
+    # b.plot_search("search_results_1M_steps100.json")  # Sample plot search from file
     # b.plot_insert('insert_results_1M_cumulative.json')  # Sample plot insert from file
 
 if __name__ == '__main__':
