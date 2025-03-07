@@ -55,25 +55,20 @@ class Benchmark:
         Return:
         None
         """
-        iterations = 5
+        print("Running Insert Simulation...")
         for distrib_key, data in self.dataset.items():
             print(distrib_key)
             structures = {"AVL": AVLTree(), "RB": RBTree(), "Treap": Treap()}
             for struc_key, tree in structures.items():
-                results = [[],[],[],[],[]]
-                for it in range(iterations):
-                    print("Iteration: ",it)
-                    for i in range(len(data)):
-                        _, exec_time = tree.insert_node(data[i])
-                        results[it].append(exec_time)
-                        if i%10000==0:
-                            print(i)
-                self.results_insertion[distrib_key][struc_key]= self.average_insert(results, iterations)
+                cumulative = 0
+                for i in range(len(data)):
+                    _, exec_time = tree.insert_node(data[i])
+                    cumulative += exec_time
+                    self.results_insertion[distrib_key][struc_key].append(cumulative)
+                    if i%10000==0:
+                        print(i)
 
         Helper.save_insert_results(self.results_insertion)
-
-    def average_insert(self,results, iterations=5):
-        return [sum(col) / iterations for col in zip(*results)]
     
     def simulate_search(self, n_steps=10):
         """
@@ -88,6 +83,7 @@ class Benchmark:
         Return:
         dict: A dictionary containing the average execution times for each algorithm across different dataset sizes.
         """
+        print("Running search simulation...")
         step_size = self.data_size//n_steps
         structures = {"AVL": AVLTree(), "RB": RBTree(), "Treap": Treap()}
 
@@ -116,7 +112,6 @@ class Benchmark:
             results.append(time_elapsed)
         return statistics.mean(results)
 
-
     def plot_insert(self, file = ''):
         """
         """
@@ -126,57 +121,29 @@ class Benchmark:
         # Define dataset sizes starting from 0
         dataset_sizes = np.arange(len(next(iter(self.results_insertion['random'].values()))))
 
-        # Plot each distribution separately
+        # Plot each distribution separately all structures on same plot
         for dist_name, structures in self.results_insertion.items():
             plt.figure(figsize=(8, 6))
             for structure, runtimes in structures.items():
-                plt.plot(dataset_sizes, runtimes, marker='o', label=structure)
+                plt.plot(dataset_sizes, runtimes, color=self.colour_key[structure], label=structure)
             
             plt.xlabel("Dataset Size")
-            plt.ylabel("Insertion Runtime (seconds)")
-            plt.title(f"Insertion Complexity - {dist_name.capitalize()} Distribution")
+            plt.ylabel("Cumulative Insertion Time (seconds)")
+            plt.title(f"Cumulative Insertion Time - {dist_name.capitalize()} Distribution")
             plt.legend()
             plt.grid()
             plt.show()
 
-    def plot_insert_rem_outliers(self, file = ''):
-        """
-        Plot insertion runtimes, removing outliers using the IQR method.
-        """
-        if file:
-            self.results_insertion = Helper.read_results_file(file)
-
-        # Define dataset sizes starting from 0
-        dataset_sizes = np.arange(len(next(iter(self.results_insertion['random'].values()))))
-
-        # Plot each distribution separately
-        for dist_name, structures in self.results_insertion.items():
-            plt.figure(figsize=(8, 6))
-            for structure, runtimes in structures.items():
-                # Step 1: Calculate the IQR for the runtimes
-                Q1 = np.percentile(runtimes, 25)
-                Q3 = np.percentile(runtimes, 75)
-                IQR = Q3 - Q1
-
-                # Step 2: Define the lower and upper bounds for outliers
-                lower_bound = Q1 - 1.5 * IQR
-                upper_bound = Q3 + 1.5 * IQR
-
-                # Step 3: Create a mask to identify non-outlier values
-                mask = (runtimes >= lower_bound) & (runtimes <= upper_bound)
-
-                # Step 4: Filter the data using the mask (removing outliers)
-                filtered_runtimes = np.array(runtimes)[mask]
-                filtered_dataset_sizes = dataset_sizes[mask]
-
-                # Plot filtered data
-                plt.plot(filtered_dataset_sizes, filtered_runtimes, marker='o', label=structure)
-
+        # Plot same structure different datasets
+        for bst_type in ["AVL", "RB", "Treap"]:
+            plt.figure(figsize=(6, 4))  # Create a new figure
+            plt.plot(self.results_insertion["random"][bst_type], label="Random", color='red')
+            plt.plot(self.results_insertion["skewed"][bst_type], label="Skewed", color='blue')
+            
             plt.xlabel("Dataset Size")
-            plt.ylabel("Insertion Runtime (seconds)")
-            plt.title(f"Insertion Complexity - {dist_name.capitalize()} Distribution")
+            plt.ylabel("Cumulative Insertion Time (seconds)")
+            plt.title(f"Cumulative Insertion Time - {bst_type}")
             plt.legend()
-            plt.grid()
             plt.show()
 
     def plot_search(self, file = ''):
