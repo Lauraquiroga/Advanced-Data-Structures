@@ -56,11 +56,11 @@ Follow these steps to run the project:
    ```bash
    python main.py # or use python3 main.py if needed
    ```
-   This will run the simulation with the dataset included in the data folder (dataset1M.json).          
+   This will run the simulation with the small dataset included in the data folder (dataset10.json).          
 
    After the execution, the results will be saved in the data/results folder and you will see the plots showing the run time complexities.
            
-   To use a custom dataset, place your file in the data folder and update the filename in main.py.
+   To use the 1M dataset or a custom one, place your file in the data folder and update the filename in main.py in the main() function.
                 
    If you want to run the project with a different number of simulation steps (variations of sizes in the dataset), update the n_steps parameter in the initialization of the Benchmark() object in the main.py file.     
            
