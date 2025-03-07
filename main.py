@@ -1,6 +1,6 @@
 from src.benchmark import Benchmark
 from src.utils import Helper
-from src.avl_tree import AVLTree
+from src.treap import Treap
 
 def main():
     """
@@ -15,8 +15,15 @@ def main():
     dataset = Helper.read_json('data/dataset10.json')
     b = Benchmark(dataset)
     #b.simulate_insertion()
-    b.plot_insert("insert_results_10_20250306-161920.json")
+    #b.plot_insert_log("insert_results_1M.json")
+    b.simulate_search()
+    b.plot_search()
 
+
+    # treap = Treap()
+    # treap.insert_node(90)
+    # treap.insert_node(10)
+    # treap.show()
 
 if __name__ == '__main__':
     main()

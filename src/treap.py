@@ -76,6 +76,7 @@ class Treap(BaseTree):
                 root = self.left_rotate(root)
         return root
 
+
     def delete(self, root, key):
         """
         """
