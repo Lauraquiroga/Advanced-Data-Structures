@@ -73,14 +73,11 @@ Follow these steps to run the project:
    
 ## References
 Code in the AVLTree and AVLNode classes was adapted from:       
-GeeksforGeeks. Insertion in an AVL Tree. Accessed: 2025-03-07. 2025. url: https://www.
-geeksforgeeks.org/insertion-in-an-avl-tree/.         
+GeeksforGeeks. Insertion in an AVL Tree. Accessed: 2025-03-07. 2025. url: https://www.geeksforgeeks.org/insertion-in-an-avl-tree/.         
 
 Code in the RBTree and RBNode classes was adapted from:       
- GeeksforGeeks. Insertion in Red-Black Tree. Accessed: 2025-03-07. 2025. url: https://www.
-geeksforgeeks.org/insertion-in-red-black-tree/.       
+ GeeksforGeeks. Insertion in Red-Black Tree. Accessed: 2025-03-07. 2025. url: https://www.geeksforgeeks.org/insertion-in-red-black-tree/.       
 
 Code in the Treap and TreapNode classes was adapted from:      
 GeeksforGeeks. Implementation of Search, Insert and Delete in Treap. Accessed: 2025-03-07.
-2025. url: https://www.geeksforgeeks.org/implementation-of-search-insert-and-
-delete-in-treap/.
+2025. url: https://www.geeksforgeeks.org/implementation-of-search-insert-and-delete-in-treap/.
