@@ -6,7 +6,7 @@ This project implements three comparable advanced data structures: AVL tree, Red
 
 ## Project Structure
 📂 project_root/     
-│── 📂 assets/       
+│── 📂 assets/  <-- Folder where the plots showing the run time complexities of the 3 structures are stored        
 │&emsp;&emsp;│── COSC 520 -Assignment 2.pdf  <-- The assignment instructions      
 │      
 │── 📂 data/     
