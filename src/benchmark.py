@@ -55,18 +55,26 @@ class Benchmark:
         Return:
         None
         """
+        iterations = 5
         for distrib_key, data in self.dataset.items():
             print(distrib_key)
             structures = {"AVL": AVLTree(), "RB": RBTree(), "Treap": Treap()}
             for struc_key, tree in structures.items():
-                for i in range(len(data)):
-                    _, exec_time = tree.insert_node(data[i])
-                    self.results_insertion[distrib_key][struc_key].append(exec_time)
-                    if i%10000==0:
-                        print(i)
+                results = [[],[],[],[],[]]
+                for it in range(iterations):
+                    print("Iteration: ",it)
+                    for i in range(len(data)):
+                        _, exec_time = tree.insert_node(data[i])
+                        results[it].append(exec_time)
+                        if i%10000==0:
+                            print(i)
+                self.results_insertion[distrib_key][struc_key]= self.average_insert(results, iterations)
 
         Helper.save_insert_results(self.results_insertion)
 
+    def average_insert(self,results, iterations=5):
+        return [sum(col) / iterations for col in zip(*results)]
+    
     def simulate_search(self, n_steps=10):
         """
         Executes the benchmark by testing the BST search over each advanced data structure using increasing dataset sizes 

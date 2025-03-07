@@ -16,16 +16,10 @@ def main():
     b = Benchmark(dataset)
 
     #b.simulate_insertion()
-    #b.plot_insert_log("insert_results_1M.json")
+    b.plot_insert_rem_outliers("insert_results_1000000_20250306-211332.json")
 
     #b.simulate_search(100)
-    b.plot_search("search_results_1M_steps100.json")
-
-
-    # treap = Treap()
-    # treap.insert_node(90)
-    # treap.insert_node(10)
-    # treap.show()
+    #b.plot_search("search_results_1M_steps100.json")
 
 if __name__ == '__main__':
     main()
