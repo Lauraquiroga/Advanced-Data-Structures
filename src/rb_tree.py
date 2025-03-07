@@ -12,6 +12,15 @@ class RBTree(BaseTree):
     """
 
     def __init__(self):
+        """
+        Initializes the Red-Black Tree.
+        
+        Parameters: 
+        None
+        
+        Return:
+        None
+        """
         self.root = None
         self.ll_rotation = False
         self.rr_rotation = False
@@ -19,6 +28,15 @@ class RBTree(BaseTree):
         self.rl_rotation = False
 
     def show(self):
+        """
+        Prints the inorder traversal of the tree.
+
+        Parameters:
+        None
+
+        Return:
+        None
+        """
         self.inorder(self.root)
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
@@ -31,7 +49,13 @@ class RBTree(BaseTree):
     
     def right_rotate(self, y):
         """
-        Perform Right Rotation
+        Performs a right rotation on the given node (y).
+        
+        Parameters:
+        y (RBNode): The node to perform the right rotation on.
+        
+        Return:
+        RBNode: The new root node after the rotation.
         """
         x = y.left
         T2 = x.right
@@ -50,7 +74,13 @@ class RBTree(BaseTree):
 
     def left_rotate(self, x):
         """
-        Perform Left Rotation
+        Performs a left rotation on the given node (x).
+        
+        Parameters:
+        x (RBNode): The node to perform the left rotation on.
+        
+        Return:
+        RBNode: The new root node after the rotation.
         """
         y = x.right
         T2 = y.left
@@ -69,6 +99,15 @@ class RBTree(BaseTree):
 
     @Helper.timing_decorator 
     def insert_node(self, key):
+        """
+        Inserts a new node with the specified key into the Red-Black Tree.
+        
+        Parameters:
+        key (int): The key to be inserted into the tree.
+        
+        Return:
+        None
+        """
         # Base case: empty tree
         if self.root is None:
             self.root = RBNode(key)
@@ -78,6 +117,14 @@ class RBTree(BaseTree):
 
     def insert(self, root, key):
         """
+        Recursively inserts the key into the tree while maintaining the Red-Black Tree properties.
+        
+        Parameters:
+        root (RBNode): The root node of the current subtree.
+        key (int): The key to be inserted.
+        
+        Return:
+        RBNode: The root of the modified subtree.
         """
         rr_conflict = False #flag to check RED-RED conflict
 
@@ -166,6 +213,13 @@ class RBTree(BaseTree):
 
     def inorder(self, root):
         """
+        Performs an inorder traversal of the tree and prints the key and color of each node.
+        
+        Parameters:
+        root (RBNode): The root node of the current subtree.
+        
+        Return:
+        None
         """
         if root:
             self.inorder(root.left)

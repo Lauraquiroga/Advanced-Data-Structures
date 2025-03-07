@@ -7,11 +7,14 @@ import os
 
 class Helper:
     """
-    A utility class containing helper methods for handling usernames and timing functions.
+    A utility class containing helper methods for handling results, dataset generation, and timing functions.
     
     The `Helper` class includes static methods to:
     - Measure the execution time of functions.
+    - Generate a dataset
     - Load data from a file.
+    - Save data into a file
+    - Visualize dataset distribution
     """
 
     @staticmethod
@@ -74,7 +77,11 @@ class Helper:
         max_val (int): maximum value in the range
 
         Returns:
-        list of 
+        dict: The generated dataset in the format:
+        {
+        'random': random.tolist(),
+        'skewed': skewed.tolist()
+        }
         """
         min_val = 1
         max_val = dataset_size*100
@@ -89,17 +96,11 @@ class Helper:
         probabilities /= probabilities.sum()
         skewed = np.random.choice(pool, size=dataset_size, replace=False, p=probabilities)
 
-        # Generating ordered arrays
-        ascending = np.arange(1, 1 + dataset_size)
-        descending =  np.arange(dataset_size, 0, -1)
-
         # Create the dataset dictionary -> from np arrays to lists so that they can be saved into a json file
         datasets = {
         'random': random.tolist(),
-        'skewed': skewed.tolist(),
-        'ascending': ascending.tolist(),
-        'descending': descending.tolist()
-    }
+        'skewed': skewed.tolist()
+        }
         return datasets
     
     def visualize_dataset_distribution(dataset):
@@ -176,9 +177,7 @@ class Helper:
         results (dict): The results of the insertion simulation in the format:
         {
         "random": { "AVL": [], "RB": [], "Treap": []},
-        "skewed": { "AVL": [], "RB": [], "Treap": []},
-        "ascending": { "AVL": [], "RB": [], "Treap": []},
-        "descending": { "AVL": [], "RB": [], "Treap": []},
+        "skewed": { "AVL": [], "RB": [], "Treap": []}
         }
 
         Returns:

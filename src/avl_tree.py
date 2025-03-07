@@ -4,12 +4,22 @@ from .utils import Helper
 
 class AVLTree(BaseTree):
     """
-	Class defining the structure of an AVL Tree.
+    Class defining the structure of an AVL Tree, which is a self-balancing binary search tree.
     
-    Code adapted from: https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
+    Code adapted from: 
+    https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
     """
 
     def __init__(self):
+        """
+        Initializes the AVL Tree with an empty root.
+
+        Parameters:
+        None
+        
+        Return:
+        None
+        """
         self.root = None
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
@@ -21,12 +31,26 @@ class AVLTree(BaseTree):
     #		   T1 T2	  Left Rotation	      T2 T3 */
     
     def show(self):
+        """
+        Prints the inorder traversal of the tree, which shows the nodes in ascending order.
+
+        Parameters:
+        None
+
+        Return:
+        None
+        """
         self.inorder(self.root)
 
     def height(self, node):
         """
-        Calculates the height of the tree from the given node
-        (distance to the leaf)
+        Calculates the height of the tree from the given node (distance to the leaf).
+        
+        Parameters:
+        node (AVlNode): The node from which the height needs to be calculated.
+        
+        Return:
+        int: The height of the node, 0 if the node is None.
         """
         if not node:
             return 0
@@ -34,7 +58,14 @@ class AVLTree(BaseTree):
     
     def get_balance(self, node):
         """
-        Get balance factor of given node
+        Gets the balance factor of the given node, which is the difference between 
+        the height of its left and right subtrees.
+        
+        Parameters:
+        node (AVlNode): The node for which the balance factor is calculated.
+        
+        Return:
+        int: The balance factor of the node (height(left) - height(right)).
         """
         if not node:
             return 0
@@ -42,7 +73,13 @@ class AVLTree(BaseTree):
     
     def right_rotate(self, y):
         """
-        Perform Right Rotation
+        Performs a right rotation on the subtree rooted at the given node (y).
+        
+        Parameters:
+        y (AVlNode): The node around which the right rotation occurs.
+        
+        Return:
+        AVlNode: The new root node after the right rotation.
         """
         x = y.left
         T2 = x.right
@@ -60,7 +97,13 @@ class AVLTree(BaseTree):
 
     def left_rotate(self, x):
         """
-        Perform Left Rotation
+        Performs a left rotation on the subtree rooted at the given node (x).
+        
+        Parameters:
+        x (AVlNode): The node around which the left rotation occurs.
+        
+        Return:
+        AVlNode: The new root node after the left rotation.
         """
         y = x.right
         T2 = y.left
@@ -79,7 +122,13 @@ class AVLTree(BaseTree):
     @Helper.timing_decorator 
     def insert_node(self, key):
         """
-        Function called from outside the class (interface?) to insert a new node on the tree
+        Interface function called from outside the class to insert a new node in the tree.
+        
+        Parameters:
+        key (int): The key to be inserted into the tree.
+        
+        Return:
+        None
         """
         # Base case: empty tree
         if self.root is None:
@@ -89,7 +138,16 @@ class AVLTree(BaseTree):
 
     def insert(self, root, key):
         """
-        Recursive function to insert a key in the subtree rooted at 'root'
+        Recursive function to insert a new key in the subtree rooted at 'root'.
+        After insertion, it ensures the AVL tree remains balanced by checking
+        the balance factor and performing necessary rotations.
+        
+        Parameters:
+        root (AVlNode): The root node of the subtree where the key will be inserted.
+        key (int): The key to be inserted into the subtree.
+        
+        Return:
+        AVlNode: The root node of the modified subtree after insertion.
         """
         # We have found the key's place on the structure according to the BST order
         if root is None:
@@ -136,6 +194,13 @@ class AVLTree(BaseTree):
 
     def inorder(self, root):
         """
+        Inorder traversal of the AVL Tree. It prints the keys and heights of the nodes.
+        
+        Parameters:
+        root (AVlNode): The root node of the current subtree being traversed.
+        
+        Return:
+        None
         """
         if root:
             self.inorder(root.left)

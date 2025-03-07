@@ -4,20 +4,46 @@ from .utils import Helper
 
 class Treap(BaseTree):
     """
-	Code adapted from: https://www.geeksforgeeks.org/implementation-of-search-insert-and-delete-in-treap/
-    
+    A Treap (Tree + Heap) is a randomized binary search tree that maintains
+    both the BST property and a heap property based on randomly assigned priorities.
+
+    Code adapted from: https://www.geeksforgeeks.org/implementation-of-search-insert-and-delete-in-treap/
     """
     def __init__(self):
+        """
+        Initializes an empty Treap.
+        """
         self.root = None
 
     def show(self):
+        """
+        Displays the Treap using an inorder traversal.
+        """
         self.inorder(self.root)
 
     @Helper.timing_decorator 
     def insert_node(self, key):
+        """
+        Inserts a new node with the given key into the Treap.
+
+        Parameters:
+        key (int): The key value to be inserted.
+
+        Returns:
+        None
+        """
         self.root = self.insert(self.root, key)
     
     def delete_node(self, key):
+        """
+        Deletes a node with the given key from the Treap.
+
+        Parameters:
+        key (int): The key value to be deleted.
+
+        Returns:
+        None
+        """
         self.root = self.delete(self.root, key)
 
     # T1, T2 and T3 are subtrees of the tree rooted with y
@@ -30,6 +56,13 @@ class Treap(BaseTree):
     
     def right_rotate(self, y):
         """
+        Performs a right rotation in the Treap using y as the pivot.
+
+        Parameters:
+        y (TreapNode): The node around which the right rotation is performed.
+
+        Returns:
+        TreapNode: The new root after rotation.
         """
         x = y.left
         T2 = x.right
@@ -43,6 +76,13 @@ class Treap(BaseTree):
         
     def left_rotate(self, x):
         """
+        Performs a left rotation in the Treap using x as the pivot.
+
+        Parameters:
+        x (TreapNode): The node around which the left rotation is performed.
+
+        Returns:
+        TreapNode: The new root after rotation.
         """
         y = x.right
         T2 = y.left
@@ -55,6 +95,17 @@ class Treap(BaseTree):
         return y
 
     def insert(self, root, key):
+        """
+        Recursively inserts a node with the given key into the Treap while maintaining
+        both the BST and heap properties.
+
+        Parameters:
+        root (TreapNode or None): The root node of the subtree where insertion is performed.
+        key (int): The key value to be inserted.
+
+        Returns:
+        TreapNode: The root node after insertion.
+        """
         # If root is None, create a new node and return it
         if not root:
             return TreapNode(key)
@@ -79,6 +130,14 @@ class Treap(BaseTree):
 
     def delete(self, root, key):
         """
+        Recursively deletes a node with the given key while preserving Treap properties.
+
+        Parameters:
+        root (TreapNode or None): The root node of the subtree where deletion is performed.
+        key (int): The key value to be deleted.
+
+        Returns:
+        TreapNode or None: The root node after deletion.
         """
         if not root:
             return root
@@ -114,6 +173,13 @@ class Treap(BaseTree):
 
     def inorder(self, root):
         """
+        Performs an inorder traversal of the Treap and prints the keys along with their priorities.
+
+        Parameters:
+        root (TreapNode or None): The root node of the subtree to traverse.
+
+        Returns:
+        None
         """
         if root:
             self.inorder(root.left)
