@@ -6,9 +6,7 @@ class TestTreap(unittest.TestCase):
     Unit test class for the `Treap` class, using Python's built-in unittest framework.
     """
     def test_insert_node(self):
-        """
-        Test if keys are inserted correctly into the treap.
-        """
+        """Test if keys are inserted correctly into the treap."""
         #Setup the Treap object for each test.
         treap = Treap()
         # Insert nodes
@@ -23,9 +21,7 @@ class TestTreap(unittest.TestCase):
             self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_insert_node_not_present(self):
-        """
-        Test that search returns False if key is not in the treap.
-        """
+        """Test that search returns False if key is not in the treap."""
         #Setup the Treap object for each test.
         treap = Treap()
         # Insert nodes
@@ -39,9 +35,7 @@ class TestTreap(unittest.TestCase):
         self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_delete_node(self):
-        """
-        Test if keys are deleted correctly from the treap.
-        """
+        """Test if keys are deleted correctly from the treap."""
         #Setup the Treap object for each test.
         treap = Treap()
         # Insert nodes
@@ -62,9 +56,7 @@ class TestTreap(unittest.TestCase):
         self.assertTrue(treap.search_key(70)[0])   # 70 should still be present
 
     def test_delete_node_not_present(self):
-        """
-        Test deleting a non-existent node.
-        """
+        """Test deleting a non-existent node."""
         #Setup the Treap object for each test.
         treap = Treap()
         # Insert nodes
@@ -87,9 +79,7 @@ class TestTreap(unittest.TestCase):
             self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_empty_treap_search(self):
-        """
-        Test searching on an empty treap.
-        """
+        """Test searching on an empty treap."""
         #Setup the Treap object for each test.
         treap = Treap()
         # Search in an empty treap
@@ -98,9 +88,7 @@ class TestTreap(unittest.TestCase):
         self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_structure(self):
-        """
-        Test structure: Keeping BST property for keys and Max-Heap property for priorities
-        """
+        """Test structure: Keeping BST property for keys and Max-Heap property for priorities"""
         #Setup the Treap object for each test.
         treap = Treap()
 

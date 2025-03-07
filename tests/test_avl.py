@@ -46,9 +46,7 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.root.height, 3)
 
     def test_search_node(self):
-        """
-        Test if keys are inserted and searched correctly within the tree.
-        """
+        """Test if keys are inserted and searched correctly within the tree."""
         #Setup the tree object for each test.
         avl_tree = AVLTree()
         # Insert nodes
@@ -63,9 +61,7 @@ class TestAVLTree(unittest.TestCase):
             self.assertGreater(elapsed_time, 0)  # Ensure some time was taken
 
     def test_search_node_not_present(self):
-        """
-        Test that search returns False if key is not in the tree.
-        """
+        """Test that search returns False if key is not in the tree."""
         #Setup the tree object for each test.
         avl_tree = AVLTree()
         # Insert nodes
