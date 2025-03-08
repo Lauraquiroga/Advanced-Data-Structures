@@ -155,17 +155,7 @@ class Benchmark:
             plt.grid()
             plt.show()
 
-        # Plot the same structure for different datasets.
-        for bst_type in ["AVL", "RB", "Treap"]:
-            plt.figure(figsize=(6, 4))  # Create a new figure.
-            plt.plot(self.results_insertion["random"][bst_type], label="Random", color='red')
-            plt.plot(self.results_insertion["skewed"][bst_type], label="Skewed", color='blue')
-            
-            plt.xlabel("Dataset Size")
-            plt.ylabel("Cumulative Insertion Time (seconds)")
-            plt.title(f"Cumulative Insertion Time - {bst_type}")
-            plt.legend()
-            plt.show()
+        Helper.check_nlogn_trend(self.results_insertion)
 
     def plot_search(self, file=''):
         """

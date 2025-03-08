@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from scipy import stats
 from sklearn.metrics import r2_score
 import seaborn as sns
 import time
@@ -47,7 +48,7 @@ class Helper:
 
         Parameters:
         dataset (dict): A dictionary in the format:
-        {'random':[], 'skewed': [], 'ascending':[], 'descending':[]}
+        {'random':[], 'skewed': []}
         containing the dataset to be saved.
 
         File format:
@@ -69,8 +70,6 @@ class Helper:
     def generate_datasets(dataset_size):
         """
         Generate the datasets:
-        - 1M Asciending order
-        - 1M Desceding order
         - 1M Random uniform
         - 1M Random skewed
 
@@ -111,7 +110,7 @@ class Helper:
         
         Parameters:
         dataset (dict): A dictionary containing the dataset in the format:
-        {'random':[], 'skewed': [], 'ascending':[], 'descending':[]}
+        {'random':[], 'skewed': []}
         """
         for key, array in dataset.items():
             plt.figure(figsize=(10, 6))
@@ -277,3 +276,47 @@ class Helper:
             # Check goodness of fit (r^2 value)
             r2 = r2_score(y, y_fit)
             print(f"R²: {r2}")
+
+    @staticmethod
+    def check_nlogn_trend(insertion_results):
+        """
+        Check if the search results exhibit a n log n trend for each of the structures.
+        Plots them individually with their n log n fit.
+
+        Parameters:
+        search_results (dict): A dictionary containing the results of the search simulation in the format:
+        {
+        "random": { "AVL": [], "RB": [], "Treap": []},
+        "skewed": { "AVL": [], "RB": [], "Treap": []}
+        }
+        """
+
+        # Define dataset sizes (x-axis) starting from 0.
+        dataset_sizes = np.arange(len(next(iter(insertion_results['random'].values()))))
+        
+        for distrib_key, exect_dict in insertion_results.items():
+            for struc_key, struc_times in exect_dict.items():
+
+                x = np.array(dataset_sizes[1:]) #skippping 0 point
+                y = np.array(struc_times[1:])#skippping 0 point
+                # Perform curve fitting
+                n_log_n = x * np.log(x)
+                slope, intercept, r_value, p_value, std_err = stats.linregress(n_log_n, y)
+
+                if distrib_key == 'random':
+                    distrib = "Random Uniform"
+                else:
+                    distrib = "Random Skewed"
+
+                # Plotting the data
+                plt.title(f"{distrib}: n log n Fit Analysis - Cumulative Insert({struc_key})")
+                plt.scatter(x, y, label='Data')
+                plt.plot(x, slope * n_log_n + intercept, color='red', label=f'Fit: y = {slope:.2e} * n log(n) + {intercept:.2e}')
+                plt.xlabel('n')
+                plt.ylabel('y')
+                plt.legend()
+                plt.show()
+
+                print(f"{distrib_key} {struc_key} - Fitted parameters: slope={slope}, intercept={intercept}")
+                # Output the R-squared value to assess the fit quality
+                print(f"R-squared value: {r_value**2}")
