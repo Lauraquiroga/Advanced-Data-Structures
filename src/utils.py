@@ -310,10 +310,10 @@ class Helper:
 
                 # Plotting the data
                 plt.title(f"{distrib}: n log n Fit Analysis - Cumulative Insert({struc_key})")
-                plt.scatter(x, y, label='Data')
+                plt.plot(x, y, label='Original Data')
                 plt.plot(x, slope * n_log_n + intercept, color='red', label=f'Fit: y = {slope:.2e} * n log(n) + {intercept:.2e}')
-                plt.xlabel('n')
-                plt.ylabel('y')
+                plt.xlabel('Dataset Size')
+                plt.ylabel('Cumulative Insertion Time (s)')
                 plt.legend()
                 plt.show()
 

@@ -62,6 +62,7 @@ def main():
     None
     """
     # Read the dataset from a JSON file (can be modified to use a different file)
+    # To run with 1M dataset use: data/dataset1M.json
     dataset = Helper.read_json('data/dataset10.json')  # Change file name to test with another dataset
     
     # Initialize the Benchmark object with the loaded dataset
